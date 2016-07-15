@@ -7,8 +7,4 @@
  */
 
 // DIC configuration
-$c = $app->getContainer();
-
-$container['JiraProxy'] = function ($c) {
-    return new \App\Src\Services\JiraProxyService();
-};
+$container = $app->getContainer();

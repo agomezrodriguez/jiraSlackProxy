@@ -22,6 +22,7 @@ class ComposerStaticInit7d27860b6a265c83cbb6fa2c13b2ba39
         'I' => 
         array (
             'Interop\\Container\\' => 18,
+            'I4Proxy\\' => 8,
         ),
         'F' => 
         array (
@@ -41,6 +42,10 @@ class ComposerStaticInit7d27860b6a265c83cbb6fa2c13b2ba39
         'Interop\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
+        ),
+        'I4Proxy\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/src',
         ),
         'FastRoute\\' => 
         array (

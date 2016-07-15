@@ -6,10 +6,13 @@
  * Time: 09:51
  */
 
+use I4Proxy\Services\JiraProxyService;
+
 // Define app routes
-$app->group('/slackify', function () {
-$this->post('/jira/{key}', function ($req, $res, $args) {
-$response = $this->get('JiraProxy');
+$app->group('/jira', function () {
+$this->post('/slack/{key}', function ($req, $res, $args) {
+    $jiraProxyService = new JiraProxyService();
+    $response = $jiraProxyService->handleRequest($req, $args);
 return $response;
 });
 });
