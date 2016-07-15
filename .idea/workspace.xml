@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8d75a0ce-1b77-441b-bb15-f2a2cc04ac95" name="Default" comment="" />
     <ignored path="slackify.iws" />
-    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -259,12 +259,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1468410884840</updated>
-      <workItem from="1468410886297" duration="10246000" />
+      <workItem from="1468410886297" duration="10416000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10246000" />
+    <option name="totallyTimeSpent" value="10416000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-675" y="-1440" width="2560" height="1440" extended-state="0" />
