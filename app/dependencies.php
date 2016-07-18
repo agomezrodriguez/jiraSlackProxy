@@ -22,3 +22,8 @@ $container['JiraProxyService'] = function ($c) {
     $jiraProxyService = new \I4Proxy\Services\JiraProxyService($c->get('logger'));
     return $jiraProxyService;
 };
+
+$container['JiraCommentCreated'] = function ($c) {
+    $jiraProxyService = new \I4Proxy\Events\Jira\CommentCreated($c->get('logger'));
+    return $jiraProxyService;
+};

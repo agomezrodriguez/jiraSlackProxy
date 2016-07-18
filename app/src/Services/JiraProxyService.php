@@ -8,43 +8,58 @@
 
 namespace I4Proxy\Services;
 
+
+use I4Proxy\Utils\I4Proxy3PMapper;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class JiraProxyService //extends AbstractProxy
+class JiraProxyService implements JiraProxyInterface
 {
-    const JIRA_NAMESPACE = '\I4Proxy\Events\Jira\\';
+    /** @var LoggerInterface $logger */
+    private $logger;
 
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
 
-    public function handleRequest(Request $req, Response $res, $args = [])
+    /**
+     * @param Request $req
+     * @param Response $res
+     * @return static
+     */
+    public function handleRequest(Request $req, Response $res)
     {
-        $request = $req->getParsedBody();
-        if (!is_array($request)) {
+        $data = $req->getParsedBody();
+        if (!is_array($data)) {
+            $this->logger->error("Bad request");
             return $res->withStatus(400)->write('Bad Request');
         }
 
-        $this->logger->info("webhookEvent:" . $request['webhookEvent']);
-
         //Hierarchical list. First element matched triggers an event
-        $exclusiveTriggersList = [
-            'comment_created' => 'CommentCreated',
-            'jira:issue_updated' => 'IssueUpdated'
-        ];
-        if (isset($request['webhookEvent']) && array_key_exists($request['webhookEvent'], $exclusiveTriggersList)) {
-            $class = self::JIRA_NAMESPACE . $exclusiveTriggersList[$request['webhookEvent']];
-            return new $class($args);
+        $exclusiveTriggersList = I4Proxy3PMapper::$jiraMapper;
+        
+        if (isset($data['webhookEvent']) && array_key_exists($data['webhookEvent'], $exclusiveTriggersList)) {
+            $this->logger->info("webhookEvent: " . $data['webhookEvent']);
+            return $exclusiveTriggersList[$data['webhookEvent']];
         }
+        $this->logger->error("No action matched in i4proxy");
         return $res->withStatus(400)->write('No action matched in i4proxy');
+    }
 
-
+    /**
+     * @param $data
+     * @param $projectKeyName
+     * @return array
+     */
+    public function unifyRequestData($data, $projectKeyName)
+    {
+        $data = $data->getParsedBody();
+        return array_merge($data, (array)$projectKeyName);
     }
     
-    public function forwardRequest($request)
+    public function forwardRequest(array $request)
     {
         
     }

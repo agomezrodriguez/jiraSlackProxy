@@ -8,11 +8,23 @@
 
 namespace I4Proxy\Events\Jira;
 
-class CommentCreated
-{
-    public function __()
-    {
-        
-    }
+use Psr\Log\LoggerInterface;
 
+class CommentCreated implements JiraTriggerInterface
+{
+    /**
+     * @var LoggerInterface $logger
+     */
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+    
+    public function formatDataToSlack(array $data)
+    {
+        print_r($data);
+
+    }
 }
