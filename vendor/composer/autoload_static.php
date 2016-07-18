@@ -19,6 +19,10 @@ class ComposerStaticInit7d27860b6a265c83cbb6fa2c13b2ba39
         array (
             'Psr\\Http\\Message\\' => 17,
         ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
         'I' => 
         array (
             'Interop\\Container\\' => 18,
@@ -39,6 +43,10 @@ class ComposerStaticInit7d27860b6a265c83cbb6fa2c13b2ba39
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
         'Interop\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
@@ -56,6 +64,10 @@ class ComposerStaticInit7d27860b6a265c83cbb6fa2c13b2ba39
     public static $prefixesPsr0 = array (
         'P' => 
         array (
+            'Psr\\Log\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/psr/log',
+            ),
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',

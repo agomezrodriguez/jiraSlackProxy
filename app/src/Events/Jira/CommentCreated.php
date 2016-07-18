@@ -6,7 +6,7 @@
  * Time: 19:03
  */
 
-namespace \I4Proxy\Events\Jira;
+namespace I4Proxy\Events\Jira;
 
 class CommentCreated
 {

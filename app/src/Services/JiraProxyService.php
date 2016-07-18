@@ -8,6 +8,7 @@
 
 namespace I4Proxy\Services;
 
+use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -15,12 +16,19 @@ class JiraProxyService //extends AbstractProxy
 {
     const JIRA_NAMESPACE = '\I4Proxy\Events\Jira\\';
 
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function handleRequest(Request $req, Response $res, $args = [])
     {
         $request = $req->getParsedBody();
         if (!is_array($request)) {
             return $res->withStatus(400)->write('Bad Request');
         }
+
+        $this->logger->info("webhookEvent:" . $request['webhookEvent']);
 
         //Hierarchical list. First element matched triggers an event
         $exclusiveTriggersList = [
