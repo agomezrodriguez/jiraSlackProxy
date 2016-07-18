@@ -27,11 +27,9 @@ class JiraProxyService //extends AbstractProxy
             'comment_created' => 'CommentCreated',
             'jira:issue_updated' => 'IssueUpdated'
         ];
-        foreach($request as $item) {
-            if (isset($item['webhookEvent']) && array_key_exists($item['webhookEvent'], $exclusiveTriggersList)) {
-                $class = self::JIRA_NAMESPACE . $exclusiveTriggersList[$item['webhookEvent']];
-                return new $class($args);
-            }
+        if (isset($request['webhookEvent']) && array_key_exists($request['webhookEvent'], $exclusiveTriggersList)) {
+            $class = self::JIRA_NAMESPACE . $exclusiveTriggersList[$request['webhookEvent']];
+            return new $class($args);
         }
         return $res->withStatus(400)->write('No action matched in i4proxy');
 
