@@ -11,5 +11,5 @@ namespace I4Proxy\Events\Jira;
 interface JiraTriggerInterface
 {
     public function formatDataToSlack(array $data);
-    
+
 }
