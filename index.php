@@ -8,14 +8,9 @@
 
 require 'vendor/autoload.php';
 
-$configuration = [
-    'settings' => [
-        'displayErrorDetails' => true,
-    ],
-];
-$container = new \Slim\Container($configuration);
+$settings = require 'app/settings.php';
 
-$app = new \Slim\App($container);
+$app = new \Slim\App($settings);
 
 // Set up dependencies
 require 'app/dependencies.php';
