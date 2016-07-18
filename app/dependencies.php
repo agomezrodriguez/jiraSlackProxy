@@ -8,3 +8,8 @@
 
 // DIC configuration
 $container = $app->getContainer();
+
+$container['JiraProxyService'] = function ($c) {
+    $jiraProxyService = new \I4Proxy\Services\JiraProxyService();
+    return $jiraProxyService;
+};
