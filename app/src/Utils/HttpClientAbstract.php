@@ -11,12 +11,29 @@ namespace I4Proxy\Utils;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use Psr\Log\LoggerInterface;
 
-class Utils
+class HttpClientAbstract
 {
     const BOT_NAME = 'bob';
-    static function postToSlack(Client $httpClient, $endpoint, $channel, $text)
+
+    /** @var  Client $httpClient */
+    private $httpClient;
+    private $config;
+    private $logger;
+
+    public function __construct(Client $httpClient, array $config, LoggerInterface $logger)
     {
+        $this->httpClient = $httpClient;
+        $this->config = $config;
+        $this->logger = $logger;
+    }
+
+    function postToSlack($key, $text)
+    {
+        $channel = $this->config['jiraSlackMapper'][$key]['channel'];
+        $endpoint = $this->config['jiraSlackMapper'][$key]['endpoint'];
+
         //TODO test a wrong api call
         $payload = json_encode([
             'channel' => $channel,
@@ -25,7 +42,7 @@ class Utils
         ]);
 
         try{
-            $httpClient->post($endpoint, ['body' => $payload]);
+            $this->httpClient->post($endpoint, ['body' => $payload]);
         //TODO move to logger
         } catch (RequestException $e) {
             echo Psr7\str($e->getRequest());

@@ -24,22 +24,28 @@ $container['httpClient'] = function() {
     return $guzzle;
 };
 
-
-//TODO switch from Pimple to Aura to avoid passing logger object to every controller
+//TODO switch DI from Pimple to Aura to avoid passing logger object to every controller
 // https://blog.shameerc.com/2015/10/automatic-construction-injection-in-slim-3
+// https://blog.shameerc.com/2015/09/slim-3-replacing-pimple-with-auradi
 
 $container['JiraProxyService'] = function ($c) {
     $jiraProxyService = new \I4Proxy\Services\JiraProxyService($c->get('logger'));
     return $jiraProxyService;
 };
 
-$container['JiraCommentCreated'] = function ($c) {
+$container['HttpClientAbstract'] = function ($c) {
     $settings = $c->get('settings');
+    $httpClientAbstract = new \I4Proxy\Utils\HttpClientAbstract(
+        $c->get('httpClient'),
+        $settings['i4proxy'],
+        $c->get('logger')
+    );
+    return $httpClientAbstract;
+};
+
+$container['JiraCommentCreated'] = function ($c) {
     $jiraProxyService = new \I4Proxy\Events\Jira\CommentCreated(
-        $c->get('logger'), 
-        $c->get('httpClient'), 
-        $settings['i4proxy']['jiraSlackMapper']
-        
+        $c->get('HttpClientAbstract')
     );
     return $jiraProxyService;
 };
