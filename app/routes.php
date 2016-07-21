@@ -8,13 +8,13 @@
 
 // Define app routes
 $app->group('/jira', function () {
-    $this->post('/slack', function (\Slim\Http\Request $req, \Slim\Http\Response $res, $args) {
+    $this->post('/slack', function (\Slim\Http\Request $request, \Slim\Http\Response $response) {
         $jiraProxyService = $this->get('JiraProxyService');
         /** @var \I4Proxy\Services\JiraProxyService $jiraProxyService */
-        $matchedRoute = $jiraProxyService->handleRequest($req, $res);
-        $jiraRoute = $this->get($matchedRoute);
+        $matchedRoute = $jiraProxyService->handleRequest($request, $response);
+        $jiraEvent = $this->get($matchedRoute);
         //$data = $jiraProxyService->unifyRequestData($req, $args);
-        $parsedData = $jiraRoute->formatDataToSlack($req, $args);
+        $parsedData = $jiraEvent->formatDataToSlack($request);
         $response = $jiraProxyService->forwardRequest($parsedData);
         return $response;
     });

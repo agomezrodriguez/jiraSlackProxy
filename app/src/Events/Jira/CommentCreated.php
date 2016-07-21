@@ -9,7 +9,6 @@
 namespace I4Proxy\Events\Jira;
 
 use I4Proxy\Utils\HttpClientAbstract;
-use I4Proxy\Utils\Utils;
 use Slim\Http\Request;
 
 class CommentCreated implements JiraTriggerInterface
@@ -21,13 +20,12 @@ class CommentCreated implements JiraTriggerInterface
         $this->httpClientAbstract = $httpClientAbstract;
     }
     
-    public function formatDataToSlack(array $data, Request $request)
+    public function formatDataToSlack(Request $request)
     {
         $queryParams = $request->getQueryParams();
-        $jiraCommentEndpoint = $data['comment']['self'];
-        $jiraIssueEndpoint = preg_replace('@/comment/\d+@', '', $jiraCommentEndpoint);
+        $data = $request->getParsedBody();
         $link = 'https://interactiv4.atlassian.net/browse/' . $queryParams['issue_id'] .'#comment-' . $queryParams['comment_id'];
         $message = $data['comment']['updateAuthor']['name'] . ' commented<br> ' . $data['comment']['body'] . '<br>in ' .$link ;
-        $slackResponse = $this->httpClientAbstract->postToSlack($data, $message);
+        $slackResponse = $this->httpClientAbstract->postToSlack($request, $message);
     }
 }

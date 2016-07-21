@@ -12,6 +12,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
+use Slim\Http\Request;
 
 class HttpClientAbstract
 {
@@ -29,9 +30,9 @@ class HttpClientAbstract
         $this->logger = $logger;
     }
 
-    function postToSlack(array $data, $message)
+    function postToSlack(Request $request, $message)
     {
-        $this->logger->info(print_r($data));
+        $data = $data = $request->getParsedBody();
         $key = $data['project_key'];
         $channel  = $this->config['jiraSlackMapper'][$key]['channel'];
         $endpoint = $this->config['jiraSlackMapper'][$key]['endpoint'];
