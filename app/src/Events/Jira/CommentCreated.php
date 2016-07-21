@@ -9,6 +9,7 @@
 namespace I4Proxy\Events\Jira;
 
 use I4Proxy\Utils\HttpClientAbstract;
+use Slim\Collection;
 use Slim\Http\Request;
 
 class CommentCreated implements JiraTriggerInterface
@@ -16,7 +17,7 @@ class CommentCreated implements JiraTriggerInterface
     private $httpClientAbstract;
     private $config;
 
-    public function __construct(HttpClientAbstract $httpClientAbstract, array $config)
+    public function __construct(HttpClientAbstract $httpClientAbstract, Collection $config)
     {
         $this->httpClientAbstract = $httpClientAbstract;
         $this->config = $config;
