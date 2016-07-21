@@ -37,7 +37,7 @@ $container['HttpClientAbstract'] = function ($c) {
     $settings = $c->get('settings');
     $httpClientAbstract = new \I4Proxy\Utils\HttpClientAbstract(
         $c->get('httpClient'),
-        $settings['i4proxy'],
+        $settings,
         $c->get('logger')
     );
     return $httpClientAbstract;

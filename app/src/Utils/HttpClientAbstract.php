@@ -12,18 +12,19 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
+use Slim\Collection;
 use Slim\Http\Request;
 
 class HttpClientAbstract
 {
-    const BOT_NAME = 'bob';
+    const BOT_NAME = 'Little Bob';
 
     /** @var  Client $httpClient */
     private $httpClient;
     private $config;
     private $logger;
 
-    public function __construct(Client $httpClient, array $config, LoggerInterface $logger)
+    public function __construct(Client $httpClient, Collection $config, LoggerInterface $logger)
     {
         $this->httpClient = $httpClient;
         $this->config = $config;
@@ -34,8 +35,8 @@ class HttpClientAbstract
     {
         $queryParams = $request->getQueryParams();
         $key = $queryParams['project_key'];
-        $channel  = $this->config['jiraSlackMapper'][$key]['channel'];
-        $endpoint = $this->config['jiraSlackMapper'][$key]['endpoint'];
+        $channel  = $this->config['jiraSlackMapper'][$key];
+        $endpoint = $this->config['slackWebhook'];
 
         $payload = json_encode([
             'channel' => $channel,
