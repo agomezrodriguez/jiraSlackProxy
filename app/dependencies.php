@@ -44,8 +44,10 @@ $container['HttpClientAbstract'] = function ($c) {
 };
 
 $container['JiraCommentCreated'] = function ($c) {
+    $settings = $c->get('settings');
     $jiraProxyService = new \I4Proxy\Events\Jira\CommentCreated(
-        $c->get('HttpClientAbstract')
+        $c->get('HttpClientAbstract'),
+        $settings
     );
     return $jiraProxyService;
 };
