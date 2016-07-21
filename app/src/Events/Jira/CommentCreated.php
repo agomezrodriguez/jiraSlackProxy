@@ -8,10 +8,8 @@
 
 namespace I4Proxy\Events\Jira;
 
-use GuzzleHttp\Client;
 use I4Proxy\Utils\HttpClientAbstract;
 use I4Proxy\Utils\Utils;
-use Psr\Log\LoggerInterface;
 
 class CommentCreated implements JiraTriggerInterface
 {
@@ -24,8 +22,10 @@ class CommentCreated implements JiraTriggerInterface
     
     public function formatDataToSlack(array $data)
     {
-        $text = 'this is a test';
-        $response = $this->httpClientAbstract->postToSlack($data['key'], $text);
-        print_r($response);exit;
+        $jiraCommentEndpoint = $data['comment']['self'];
+        $jiraIssueEndpoint = preg_replace('@/comment/\d+@', '', $jiraCommentEndpoint);
+        $link = 'https://interactiv4.atlassian.net/browse/' . $data['issue_id'] .'#comment-' . $data['comment_id'];
+        $message = $data['comment']['updateAuthor']['name'] . ' commented<br> ' . $data['comment']['body'] . '<br>in ' .$link ;
+        $slackResponse = $this->httpClientAbstract->postToSlack($data, $message);
     }
 }

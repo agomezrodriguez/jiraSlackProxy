@@ -29,25 +29,25 @@ class HttpClientAbstract
         $this->logger = $logger;
     }
 
-    function postToSlack($key, $text)
+    function postToSlack(array $data, $message)
     {
-        $channel = $this->config['jiraSlackMapper'][$key]['channel'];
+        $this->logger->info(print_r($data));
+        $key = $data['key'];
+        $channel  = $this->config['jiraSlackMapper'][$key]['channel'];
         $endpoint = $this->config['jiraSlackMapper'][$key]['endpoint'];
 
-        //TODO test a wrong api call
         $payload = json_encode([
             'channel' => $channel,
-            'text' => $text,
+            'text' => $message,
             'username' => self::BOT_NAME
         ]);
 
         try{
             $this->httpClient->post($endpoint, ['body' => $payload]);
-        //TODO move to logger
         } catch (RequestException $e) {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
+            $this->logger->error(print_r(Psr7\str($e->getRequest()),true));
+            if ($e->getResponse()) {
+                $this->logger->error(print_r(Psr7\str($e->getResponse()),true));
             }
         }
     }
