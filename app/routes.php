@@ -13,8 +13,6 @@ $app->group('/jira', function () {
         /** @var \I4Proxy\Services\JiraProxyService $jiraProxyService */
         $matchedRoute = $jiraProxyService->handleRequest($request, $response);
         $jiraEvent = $this->get($matchedRoute);
-        $parsedData = $jiraEvent->formatDataToSlack($request);
-        $response = $jiraProxyService->forwardRequest($parsedData);
-        return $response;
+        $jiraEvent->forwardRequest($request);
     });
 });

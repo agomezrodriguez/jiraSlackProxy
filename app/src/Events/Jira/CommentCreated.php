@@ -27,11 +27,11 @@ class CommentCreated implements JiraTriggerInterface
     {
         $queryParams = $request->getQueryParams();
         $data = $request->getParsedBody();
-        $jiraBaseUrl = $this->config['jiraBaseUrl'];
+        $jiraBaseUrl = $this->config->get('jiraBaseUrl');
         $commentLink = $jiraBaseUrl . '/browse/' . $queryParams['issue_key'] .'#comment-' . $queryParams['comment_id'];
         $addLink = $jiraBaseUrl . '/browse/' . $queryParams['issue_key'] .'#add-comment';
         $message = "*" . $data['comment']['author']['displayName'] . "* commented on <" . $commentLink . "|" . $queryParams['issue_key'] . ">\n\n ```" .
             $data['comment']['body'] . "``` \n\n <" . $addLink . "|Add comment>";
-        $slackResponse = $this->httpClientAbstract->postToSlack($request, $message);
+        $this->httpClientAbstract->postToSlack($request, $message);
     }
 }

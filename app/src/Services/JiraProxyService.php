@@ -41,7 +41,7 @@ class JiraProxyService implements JiraProxyInterface
         $exclusiveTriggersList = I4Proxy3PMapper::$jiraMapper;
         
         if (isset($data['webhookEvent']) && array_key_exists($data['webhookEvent'], $exclusiveTriggersList)) {
-            $this->logger->info("webhookEvent: " . $data['webhookEvent']);
+            //$this->logger->info("webhookEvent: " . $data['webhookEvent']);
             return $exclusiveTriggersList[$data['webhookEvent']];
         }
         $this->logger->error("No action matched in i4proxy");

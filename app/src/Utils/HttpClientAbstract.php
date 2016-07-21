@@ -35,8 +35,8 @@ class HttpClientAbstract
     {
         $queryParams = $request->getQueryParams();
         $key = $queryParams['project_key'];
-        $channel  = $this->config['jiraSlackMapper'][$key];
-        $endpoint = $this->config['slackWebhook'];
+        $channel  = $this->config->get('i4proxy')['jiraSlackMapper'][$key];
+        $endpoint = $this->config->get('slackWebhook');
 
         $payload = json_encode([
             'channel' => $channel,
