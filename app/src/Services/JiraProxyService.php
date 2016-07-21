@@ -53,11 +53,11 @@ class JiraProxyService implements JiraProxyInterface
      * @param $projectKeyName
      * @return array
      */
-    public function unifyRequestData($data, $args)
+    /*public function unifyRequestData($data, $args)
     {
         $data = $data->getParsedBody();
         return array_merge($data, (array)$args);
-    }
+    }*/
     
     public function forwardRequest(array $request)
     {

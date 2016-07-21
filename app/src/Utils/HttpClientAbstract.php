@@ -32,7 +32,7 @@ class HttpClientAbstract
     function postToSlack(array $data, $message)
     {
         $this->logger->info(print_r($data));
-        $key = $data['key'];
+        $key = $data['project_key'];
         $channel  = $this->config['jiraSlackMapper'][$key]['channel'];
         $endpoint = $this->config['jiraSlackMapper'][$key]['endpoint'];
 

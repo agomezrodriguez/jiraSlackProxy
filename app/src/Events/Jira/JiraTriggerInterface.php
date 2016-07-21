@@ -8,8 +8,10 @@
 
 namespace I4Proxy\Events\Jira;
 
+use Slim\Http\Request;
+
 interface JiraTriggerInterface
 {
-    public function formatDataToSlack(array $data);
+    public function formatDataToSlack(array $data, Request $request);
 
 }
