@@ -47,10 +47,5 @@ class JiraProxyService implements JiraProxyInterface
         $this->logger->error("No action matched in i4proxy");
         return $res->withStatus(400)->write('No action matched in i4proxy');
     }
-    
-    public function forwardRequest(array $request)
-    {
-        
-    }
 
 }

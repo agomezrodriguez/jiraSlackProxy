@@ -12,6 +12,6 @@ use Slim\Http\Request;
 
 interface JiraTriggerInterface
 {
-    public function formatDataToSlack(Request $request);
+    public function forwardRequest(Request $request);
 
 }

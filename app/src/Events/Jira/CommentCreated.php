@@ -23,7 +23,7 @@ class CommentCreated implements JiraTriggerInterface
         $this->config = $config;
     }
     
-    public function formatDataToSlack(Request $request)
+    public function forwardRequest(Request $request)
     {
         $queryParams = $request->getQueryParams();
         $data = $request->getParsedBody();

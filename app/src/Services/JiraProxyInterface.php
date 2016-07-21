@@ -14,7 +14,4 @@ use Slim\Http\Response;
 interface JiraProxyInterface
 {
     function handleRequest(Request $req, Response $res);
-
-    function forwardRequest(array $request);
-
 }
