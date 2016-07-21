@@ -32,15 +32,16 @@ class HttpClientAbstract
 
     function postToSlack(Request $request, $message)
     {
-        $data = $data = $request->getParsedBody();
-        $key = $data['project_key'];
+        $queryParams = $request->getQueryParams();
+        $key = $queryParams['project_key'];
         $channel  = $this->config['jiraSlackMapper'][$key]['channel'];
         $endpoint = $this->config['jiraSlackMapper'][$key]['endpoint'];
 
         $payload = json_encode([
             'channel' => $channel,
             'text' => $message,
-            'username' => self::BOT_NAME
+            'username' => self::BOT_NAME,
+            'unfurl_links' => 'true',
         ]);
 
         try{

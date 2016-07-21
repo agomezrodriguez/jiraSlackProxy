@@ -24,8 +24,10 @@ class CommentCreated implements JiraTriggerInterface
     {
         $queryParams = $request->getQueryParams();
         $data = $request->getParsedBody();
-        $link = 'https://interactiv4.atlassian.net/browse/' . $queryParams['issue_id'] .'#comment-' . $queryParams['comment_id'];
-        $message = $data['comment']['updateAuthor']['name'] . ' commented<br> ' . $data['comment']['body'] . '<br>in ' .$link ;
+        $commentLink = 'https://interactiv4.atlassian.net/browse/' . $queryParams['issue_key'] .'#comment-' . $queryParams['comment_id'];
+        $addLink = 'https://interactiv4.atlassian.net/browse/' . $queryParams['issue_key'] .'#add-comment';
+        $message = "*" . $data['comment']['author']['displayName'] . "* commented on <" . $commentLink . "|" . $queryParams['issue_key'] . ">\n\n ```" .
+            $data['comment']['body'] . "``` \n\n <" . $addLink . "|Add comment>";
         $slackResponse = $this->httpClientAbstract->postToSlack($request, $message);
     }
 }
