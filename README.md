@@ -10,6 +10,6 @@
                 ||     ||
 ```
 
-## current integrations with Slack
+## current integrations
 * JIRA
 * BugHerd

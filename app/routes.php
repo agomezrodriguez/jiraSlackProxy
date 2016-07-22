@@ -7,9 +7,12 @@
  */
 
 // Define app routes
-$app->group('/slackify', function () {
-$this->post('/jira/{key}', function ($req, $res, $args) {
-$response = $this->get('JiraProxy');
-return $response;
-});
+$app->group('/jira', function () {
+    $this->post('/slack', function (\Slim\Http\Request $request, \Slim\Http\Response $response) {
+        $jiraProxyService = $this->get('JiraProxyService');
+        /** @var \I4Proxy\Services\JiraProxyService $jiraProxyService */
+        $matchedRoute = $jiraProxyService->handleRequest($request, $response);
+        $jiraEvent = $this->get($matchedRoute);
+        $jiraEvent->forwardRequest($request);
+    });
 });
