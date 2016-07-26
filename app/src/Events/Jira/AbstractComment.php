@@ -47,12 +47,14 @@ abstract class AbstractComment implements JiraTriggerInterface
      */
     public function formatMessage(array $data)
     {
-        $data = new ArrayPicker($data);
-        $comment = new ArrayPicker($data);
-        $author = new ArrayPicker($comment);
-        
-        return "*" . $author->get('displayName') . "* " . self::ACTION ." on <" . $data->get('commentLink') . "|" . $data->get('issueKey') . ">\n\n ```" .
-            $comment->get('body') . "``` \n\n <" . $data->get('addLink') . "|Add comment>";    }
+        $commentLink = ArrayPicker::get($data, 'commentLink');
+        $issueKey = ArrayPicker::get($data, 'issueKey');
+        $addLink = ArrayPicker::get($data, 'addLink');
+        $body = ArrayPicker::get($data, 'comment.body');
+        $displayName = ArrayPicker::get($data, 'comment.author.displayName');
+
+        return "*" . $displayName . "* " . self::ACTION ." on <" . $commentLink . "|" . $issueKey . ">\n\n ```" . $body . "``` \n\n <" . $addLink . "|Add comment>";
+    }
 
     /**
      * @param Request $request
