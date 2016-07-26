@@ -18,7 +18,7 @@ class ArrayPicker {
         if (is_array($key)) {
             $lastKey = array_pop($key);
             foreach ($key as $keyPart) {
-                $array = static::getValue($array, $keyPart);
+                $array = static::get($array, $keyPart);
             }
             $key = $lastKey;
         }
@@ -26,7 +26,7 @@ class ArrayPicker {
             return $array[$key];
         }
         if (($pos = strrpos($key, '.')) !== false) {
-            $array = static::getValue($array, substr($key, 0, $pos), $default);
+            $array = static::get($array, substr($key, 0, $pos), $default);
             $key = substr($key, $pos + 1);
         }
         if (is_object($array)) {
