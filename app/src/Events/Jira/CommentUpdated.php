@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: agomez
- * Date: 15/07/16
- * Time: 19:03
+ * Date: 26/07/16
+ * Time: 10:14
  */
 
 namespace I4Proxy\Events\Jira;
@@ -11,9 +11,9 @@ namespace I4Proxy\Events\Jira;
 use I4Proxy\Utils\HttpClientAbstract;
 use Slim\Collection;
 
-class CommentCreated extends AbstractComment
+class CommentUpdated extends AbstractComment
 {
-    const COMMENT_CREATED = 'commented';
+    const COMMENT_UPDATED = 'updated a comment';
 
     protected $httpClientAbstract;
     protected $config;
@@ -34,8 +34,7 @@ class CommentCreated extends AbstractComment
      */
     public function customizeDataMessage($message)
     {
-        return str_replace(self::ACTION, self::COMMENT_CREATED, $message);
+        return str_replace(self::ACTION, self::COMMENT_UPDATED, $message);
     }
-    
-}
 
+}
