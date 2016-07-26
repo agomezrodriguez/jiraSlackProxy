@@ -8,6 +8,7 @@
 
 namespace I4Proxy\Events\Jira;
 
+use I4Proxy\Utils\ArrayPicker;
 use I4Proxy\Utils\HttpClientAbstract;
 use Slim\Collection;
 use Slim\Http\Request;
@@ -46,8 +47,12 @@ abstract class AbstractComment implements JiraTriggerInterface
      */
     public function formatMessage(array $data)
     {
-        return "*" . $data['comment']['author']['displayName'] . "* " . self::ACTION ." on <" . $data['commentLink'] . "|" . $data['issueKey'] . ">\n\n ```" .
-            $data['comment']['body'] . "``` \n\n <" . $data['addLink'] . "|Add comment>";    }
+        $data = new ArrayPicker($data);
+        $comment = new ArrayPicker($data);
+        $author = new ArrayPicker($comment);
+        
+        return "*" . $author->get('displayName') . "* " . self::ACTION ." on <" . $data->get('commentLink') . "|" . $data->get('issueKey') . ">\n\n ```" .
+            $comment->get('body') . "``` \n\n <" . $data->get('addLink') . "|Add comment>";    }
 
     /**
      * @param Request $request

@@ -51,3 +51,21 @@ $container['JiraCommentCreated'] = function ($c) {
     );
     return $jiraProxyService;
 };
+
+$container['JiraCommentUpdated'] = function ($c) {
+    $settings = $c->get('settings');
+    $jiraProxyService = new \I4Proxy\Events\Jira\CommentUpdated(
+        $c->get('HttpClientAbstract'),
+        $settings
+    );
+    return $jiraProxyService;
+};
+
+$container['JiraCommentDeleted'] = function ($c) {
+    $settings = $c->get('settings');
+    $jiraProxyService = new \I4Proxy\Events\Jira\CommentDeleted(
+        $c->get('HttpClientAbstract'),
+        $settings
+    );
+    return $jiraProxyService;
+};

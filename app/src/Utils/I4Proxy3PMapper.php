@@ -6,7 +6,6 @@
  * Time: 10:16
  */
 
-
 namespace I4Proxy\Utils;
 
 //Class for mapping third parties action names with our internal class names
@@ -17,7 +16,7 @@ class I4Proxy3PMapper
         'comment_created' => 'JiraCommentCreated',
         'comment_updated' => 'JiraCommentUpdated',
         'comment_deleted' => 'JiraCommentDeleted',
-        'jira:issue_updated' => 'JiraIssueUpdated'
+        //'jira:issue_updated' => 'JiraIssueUpdated'
     ];
     
 }

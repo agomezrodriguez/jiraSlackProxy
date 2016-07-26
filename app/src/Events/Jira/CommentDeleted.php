@@ -10,7 +10,6 @@ namespace I4Proxy\Events\Jira;
 
 use I4Proxy\Utils\HttpClientAbstract;
 use Slim\Collection;
-use Slim\Http\Request;
 
 class CommentDeleted extends AbstractComment
 {
