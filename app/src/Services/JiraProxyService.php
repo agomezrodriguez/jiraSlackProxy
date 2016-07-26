@@ -8,7 +8,6 @@
 
 namespace I4Proxy\Services;
 
-
 use I4Proxy\Utils\I4Proxy3PMapper;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
