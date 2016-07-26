@@ -15,7 +15,8 @@ class I4Proxy3PMapper
     //Mapper between JIra webhookEvent names and I4Proxy dependency inyection container
     static $jiraMapper = [
         'comment_created' => 'JiraCommentCreated',
-        'comment_updated' => 'JiraCommentCreated',
+        'comment_updated' => 'JiraCommentUpdated',
+        'comment_deleted' => 'JiraCommentDeleted',
         'jira:issue_updated' => 'JiraIssueUpdated'
     ];
     

@@ -14,10 +14,11 @@ use Slim\Http\Request;
 
 abstract class AbstractComment implements JiraTriggerInterface
 {
-
+    const ACTION = '@@action@@';
+    
     protected $httpClientAbstract;
     protected $config;
-    
+
     /**
      * CommentCreated constructor.
      * @param HttpClientAbstract $httpClientAbstract
@@ -34,14 +35,35 @@ abstract class AbstractComment implements JiraTriggerInterface
      */
     public function forwardRequest(Request $request)
     {
-        $message = $this->formatMessage($request);
+        $message = $this->buildDataMessage($request);
+        $message = $this->customizeDataMessage($message);
         $this->httpClientAbstract->postToSlack($request, $message);
     }
 
-    public function formatMessage(Request $request)
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function formatMessage(array $data)
     {
+        return "*" . $data['comment']['author']['displayName'] . "* " . self::ACTION ." on <" . $data['commentLink'] . "|" . $data['issue_key'] . ">\n\n ```" .
+            $data['comment']['body'] . "``` \n\n <" . $data['addLink'] . "|Add comment>";    }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function buildDataMessage(Request $request)
+    {
+        $queryParams = $request->getQueryParams();
+        $data = $request->getParsedBody();
+        $jiraBaseUrl = $this->config->get('jiraBaseUrl');
+        $commentLink = $jiraBaseUrl . '/browse/' . $queryParams['issue_key'] .'#comment-' . $queryParams['comment_id'];
+        $addLink = $jiraBaseUrl . '/browse/' . $queryParams['issue_key'] .'#add-comment';
+        $data['commentLink'] = $commentLink;
+        $data['addLink'] = $addLink;
+        $data['issueKey'] = $queryParams['issue_key'];
+        return $this->formatMessage($data);
     }
-
     
 }

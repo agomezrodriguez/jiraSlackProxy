@@ -14,20 +14,28 @@ use Slim\Http\Request;
 
 class CommentUpdated extends AbstractComment
 {
+    const COMMENT_UPDATED = 'updated a comment';
+
+    protected $httpClientAbstract;
+    protected $config;
+
     /**
-     * @param Request $request
-     * @return string
+     * CommentCreated constructor.
+     * @param HttpClientAbstract $httpClientAbstract
+     * @param Collection $config
      */
-    public function formatMessage(Request $request)
+    public function __construct(HttpClientAbstract $httpClientAbstract, Collection $config)
     {
-        $queryParams = $request->getQueryParams();
-        $data = $request->getParsedBody();
-        $jiraBaseUrl = $this->config->get('jiraBaseUrl');
-        $commentLink = $jiraBaseUrl . '/browse/' . $queryParams['issue_key'] .'#comment-' . $queryParams['comment_id'];
-        $addLink = $jiraBaseUrl . '/browse/' . $queryParams['issue_key'] .'#add-comment';
-        $message = "*" . $data['comment']['author']['displayName'] . "* commented on <" . $commentLink . "|" . $queryParams['issue_key'] . ">\n\n ```" .
-            $data['comment']['body'] . "``` \n\n <" . $addLink . "|Add comment>";
-        return $message;
+        parent::__construct($httpClientAbstract, $config);
     }
-    
+
+    /**
+     * @param $message
+     * @return mixed
+     */
+    public function customizeDataMessage($message)
+    {
+        return str_replace(self::ACTION, self::COMMENT_UPDATED, $message);
+    }
+
 }
