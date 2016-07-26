@@ -14,7 +14,7 @@ use Slim\Http\Request;
 
 class CommentCreated extends AbstractComment
 {
-    const COMMENT_CREATED = 'created a comment';
+    const COMMENT_CREATED = 'commented';
 
     protected $httpClientAbstract;
     protected $config;

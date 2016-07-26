@@ -15,7 +15,7 @@ use Slim\Http\Request;
 abstract class AbstractComment implements JiraTriggerInterface
 {
     const ACTION = '@@action@@';
-    
+
     protected $httpClientAbstract;
     protected $config;
 
@@ -46,7 +46,7 @@ abstract class AbstractComment implements JiraTriggerInterface
      */
     public function formatMessage(array $data)
     {
-        return "*" . $data['comment']['author']['displayName'] . "* " . self::ACTION ." on <" . $data['commentLink'] . "|" . $data['issue_key'] . ">\n\n ```" .
+        return "*" . $data['comment']['author']['displayName'] . "* " . self::ACTION ." on <" . $data['commentLink'] . "|" . $data['issueKey'] . ">\n\n ```" .
             $data['comment']['body'] . "``` \n\n <" . $data['addLink'] . "|Add comment>";    }
 
     /**
