@@ -7,6 +7,7 @@
  */
 
 // Define app routes
+// Jira routes
 $app->group('/jira', function () {
     $this->post('/slack', function (\Slim\Http\Request $request, \Slim\Http\Response $response) {
         $jiraProxyService = $this->get('JiraProxyService');
