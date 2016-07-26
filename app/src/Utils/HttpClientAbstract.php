@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
 use Slim\Collection;
 use Slim\Http\Request;
+use InvalidArgumentException;
 
 class HttpClientAbstract
 {
@@ -45,7 +46,13 @@ class HttpClientAbstract
     {
         $queryParams = $request->getQueryParams();
         $key = $queryParams['project_key'];
-        $channel  = $this->config->get('i4proxy')['jiraSlackMapper'][$key];
+
+
+        if (!array_key_exists($key, $this->config->get('i4proxy')['jiraSlackMapper'])) {
+            $this->logger->error('Invalid project key ' . $key);
+            throw new InvalidArgumentException('Invalid project key ' . $key);
+        }
+        $channel = $this->config->get('i4proxy')['jiraSlackMapper'][$key];
         $endpoint = $this->config->get('slackWebhook');
 
         $payload = json_encode([
