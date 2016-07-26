@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: agomez
- * Date: 15/07/16
- * Time: 19:03
+ * Date: 26/07/16
+ * Time: 10:14
  */
 
 namespace I4Proxy\Events\Jira;
@@ -12,21 +12,8 @@ use I4Proxy\Utils\HttpClientAbstract;
 use Slim\Collection;
 use Slim\Http\Request;
 
-class CommentCreated extends AbstractComment
+class CommentUpdated extends AbstractComment
 {
-    protected $httpClientAbstract;
-    protected $config;
-
-    /**
-     * CommentCreated constructor.
-     * @param HttpClientAbstract $httpClientAbstract
-     * @param Collection $config
-     */
-    public function __construct(HttpClientAbstract $httpClientAbstract, Collection $config)
-    {
-        parent::__construct($httpClientAbstract, $config);
-    }
-
     /**
      * @param Request $request
      * @return string
@@ -42,14 +29,5 @@ class CommentCreated extends AbstractComment
             $data['comment']['body'] . "``` \n\n <" . $addLink . "|Add comment>";
         return $message;
     }
-
-    /**
-     * @param Request $request
-     */
-    public function forwardRequest(Request $request)
-    {
-        $message = $this->formatMessage($request);
-        $this->httpClientAbstract->postToSlack($request, $message);
-    }
+    
 }
-

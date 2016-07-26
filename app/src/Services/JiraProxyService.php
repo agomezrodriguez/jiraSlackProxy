@@ -18,6 +18,10 @@ class JiraProxyService implements JiraProxyInterface
     /** @var LoggerInterface $logger */
     private $logger;
 
+    /**
+     * JiraProxyService constructor.
+     * @param LoggerInterface $logger
+     */
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -35,10 +39,8 @@ class JiraProxyService implements JiraProxyInterface
             $this->logger->error("Bad request");
             return $res->withStatus(400)->write('Bad Request');
         }
-
         //Hierarchical list. First element matched triggers an event
         $exclusiveTriggersList = I4Proxy3PMapper::$jiraMapper;
-        
         if (isset($data['webhookEvent']) && array_key_exists($data['webhookEvent'], $exclusiveTriggersList)) {
             //$this->logger->info("webhookEvent: " . $data['webhookEvent']);
             return $exclusiveTriggersList[$data['webhookEvent']];

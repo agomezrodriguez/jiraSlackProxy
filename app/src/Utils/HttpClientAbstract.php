@@ -24,6 +24,12 @@ class HttpClientAbstract
     private $config;
     private $logger;
 
+    /**
+     * HttpClientAbstract constructor.
+     * @param Client $httpClient
+     * @param Collection $config
+     * @param LoggerInterface $logger
+     */
     public function __construct(Client $httpClient, Collection $config, LoggerInterface $logger)
     {
         $this->httpClient = $httpClient;
@@ -31,6 +37,10 @@ class HttpClientAbstract
         $this->logger = $logger;
     }
 
+    /**
+     * @param Request $request
+     * @param $message
+     */
     function postToSlack(Request $request, $message)
     {
         $queryParams = $request->getQueryParams();
