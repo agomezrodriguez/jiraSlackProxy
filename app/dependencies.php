@@ -33,20 +33,20 @@ $container['JiraProxyService'] = function ($c) {
     return $jiraProxyService;
 };
 
-$container['HttpClientAbstract'] = function ($c) {
+$container['HttpClientService'] = function ($c) {
     $settings = $c->get('settings');
-    $httpClientAbstract = new \I4Proxy\Utils\HttpClientAbstract(
+    $httpClientService = new \I4Proxy\Utils\HttpClientService(
         $c->get('httpClient'),
         $settings,
         $c->get('logger')
     );
-    return $httpClientAbstract;
+    return $httpClientService;
 };
 
 $container['JiraCommentCreated'] = function ($c) {
     $settings = $c->get('settings');
     $jiraProxyService = new \I4Proxy\Events\Jira\CommentCreated(
-        $c->get('HttpClientAbstract'),
+        $c->get('HttpClientService'),
         $settings
     );
     return $jiraProxyService;
@@ -55,7 +55,7 @@ $container['JiraCommentCreated'] = function ($c) {
 $container['JiraCommentUpdated'] = function ($c) {
     $settings = $c->get('settings');
     $jiraProxyService = new \I4Proxy\Events\Jira\CommentUpdated(
-        $c->get('HttpClientAbstract'),
+        $c->get('HttpClientService'),
         $settings
     );
     return $jiraProxyService;
@@ -64,7 +64,7 @@ $container['JiraCommentUpdated'] = function ($c) {
 $container['JiraCommentDeleted'] = function ($c) {
     $settings = $c->get('settings');
     $jiraProxyService = new \I4Proxy\Events\Jira\CommentDeleted(
-        $c->get('HttpClientAbstract'),
+        $c->get('HttpClientService'),
         $settings
     );
     return $jiraProxyService;

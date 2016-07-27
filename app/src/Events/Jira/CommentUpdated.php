@@ -8,24 +8,24 @@
 
 namespace I4Proxy\Events\Jira;
 
-use I4Proxy\Utils\HttpClientAbstract;
+use I4Proxy\Utils\HttpClientService;
 use Slim\Collection;
 
 class CommentUpdated extends AbstractComment
 {
     const COMMENT_UPDATED = 'updated a comment';
 
-    protected $httpClientAbstract;
+    protected $HttpClientService;
     protected $config;
 
     /**
      * CommentCreated constructor.
-     * @param HttpClientAbstract $httpClientAbstract
+     * @param HttpClientService $HttpClientService
      * @param Collection $config
      */
-    public function __construct(HttpClientAbstract $httpClientAbstract, Collection $config)
+    public function __construct(HttpClientService $HttpClientService, Collection $config)
     {
-        parent::__construct($httpClientAbstract, $config);
+        parent::__construct($HttpClientService, $config);
     }
 
     /**

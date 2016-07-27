@@ -16,7 +16,7 @@ use Slim\Collection;
 use Slim\Http\Request;
 use InvalidArgumentException;
 
-class HttpClientAbstract
+class HttpClientService
 {
     const BOT_NAME = 'Little Bob';
 
@@ -26,7 +26,7 @@ class HttpClientAbstract
     private $logger;
 
     /**
-     * HttpClientAbstract constructor.
+     * HttpClientService constructor.
      * @param Client $httpClient
      * @param Collection $config
      * @param LoggerInterface $logger
@@ -46,8 +46,7 @@ class HttpClientAbstract
     {
         $queryParams = $request->getQueryParams();
         $key = $queryParams['project_key'];
-
-
+        
         if (!array_key_exists($key, $this->config->get('i4proxy')['jiraSlackMapper'])) {
             $this->logger->error('Invalid project key ' . $key);
             throw new InvalidArgumentException('Invalid project key ' . $key);

@@ -9,7 +9,7 @@
 namespace I4Proxy\Events\Jira;
 
 use I4Proxy\Utils\ArrayPicker;
-use I4Proxy\Utils\HttpClientAbstract;
+use I4Proxy\Utils\HttpClientService;
 use Slim\Collection;
 use Slim\Http\Request;
 
@@ -17,17 +17,17 @@ abstract class AbstractComment implements JiraTriggerInterface
 {
     const ACTION = '@@action@@';
 
-    protected $httpClientAbstract;
+    protected $HttpClientService;
     protected $config;
 
     /**
      * CommentCreated constructor.
-     * @param HttpClientAbstract $httpClientAbstract
+     * @param HttpClientService $HttpClientService
      * @param Collection $config
      */
-    public function __construct(HttpClientAbstract $httpClientAbstract, Collection $config)
+    public function __construct(HttpClientService $HttpClientService, Collection $config)
     {
-        $this->httpClientAbstract = $httpClientAbstract;
+        $this->HttpClientService = $HttpClientService;
         $this->config = $config;
     }
 
@@ -38,7 +38,7 @@ abstract class AbstractComment implements JiraTriggerInterface
     {
         $message = $this->buildDataMessage($request);
         $message = $this->customizeDataMessage($message);
-        $this->httpClientAbstract->postToSlack($request, $message);
+        $this->HttpClientService->postToSlack($request, $message);
     }
 
     /**

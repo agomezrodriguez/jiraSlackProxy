@@ -10,6 +10,12 @@ namespace I4Proxy\Utils;
 
 class ArrayPicker {
 
+    /**
+     * @param $array
+     * @param $key
+     * @param null $default
+     * @return mixed|null
+     */
     public static function get($array, $key, $default = null)
     {
         if ($key instanceof \Closure) {

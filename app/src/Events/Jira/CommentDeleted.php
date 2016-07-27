@@ -8,24 +8,24 @@
 
 namespace I4Proxy\Events\Jira;
 
-use I4Proxy\Utils\HttpClientAbstract;
+use I4Proxy\Utils\HttpClientService;
 use Slim\Collection;
 
 class CommentDeleted extends AbstractComment
 {
-    const COMMENT_DETELED = 'deleted a comment';
+    const COMMENT_DELETED = 'deleted a comment';
 
-    protected $httpClientAbstract;
+    protected $HttpClientService;
     protected $config;
 
     /**
      * CommentCreated constructor.
-     * @param HttpClientAbstract $httpClientAbstract
+     * @param HttpClientService $HttpClientService
      * @param Collection $config
      */
-    public function __construct(HttpClientAbstract $httpClientAbstract, Collection $config)
+    public function __construct(HttpClientService $HttpClientService, Collection $config)
     {
-        parent::__construct($httpClientAbstract, $config);
+        parent::__construct($HttpClientService, $config);
     }
 
     /**
@@ -34,7 +34,7 @@ class CommentDeleted extends AbstractComment
      */
     public function customizeDataMessage($message)
     {
-        return str_replace(self::ACTION, self::COMMENT_DETELED, $message);
+        return str_replace(self::ACTION, self::COMMENT_DELETED, $message);
     }
 
 }
